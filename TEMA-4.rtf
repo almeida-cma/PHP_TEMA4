@@ -360,215 +360,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") \{\par
 
 \pard\qj\cf2\b0\f1\fs22 Comando de repeti\'e7\'e3o tem a fun\'e7\'e3o de determinar os n\'fameros de vezes que um bloco uma sequ\'eancia de instru\'e7\'f5es pode ocorrer, uma repeti\'e7\'e3o colocada pelo o programador, ajuda a diminuir uma codifica\'e7\'e3o dentro da sintaxe. Vamos falar nesse cap\'edtulo dos principais comandos de repeti\'e7\'e3o usados no PHP, sendo while, do .. while, for e foreach.\par
 \par
-\cf1\fs26 WHILE\par
-\cf2\fs22 O mais simples de ser colocado em a\'e7\'e3o, por\'e9m nesse caso usando o While sabemos o in\'edcio mais n\'e3o o fim, da repeti\'e7\'e3o. Veja o exemplo.\par
+\cf1\fs28 WHILE\par
+\cf0\fs22 No la\'e7o while, a condi\'e7\'e3o \'e9 verificada antes da execu\'e7\'e3o do bloco de c\'f3digo. Se a condi\'e7\'e3o for falsa desde o in\'edcio, o c\'f3digo dentro do la\'e7o nunca ser\'e1 executado.\par
+\cf1\par
+\cf0 Exemplo:\par
+\cf3\b <?php\cf1\b0\par
+$x = 5;\par
 \par
-\cf3 <!DOCTYPE html>\par
-<html lang="pt-br">\par
-<head>\par
-    <meta charset="UTF-8">\par
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
-    <title>Exemplo de While em PHP Interativo</title>\par
-    <style>\par
-        body \{\par
-            font-family: Arial, sans-serif;\par
-            background-color: #f2f2f2;\par
-            margin: 0;\par
-            padding: 0;\par
-            display: flex;\par
-            justify-content: center;\par
-            align-items: center;\par
-            min-height: 100vh;\par
-        \}\par
+while ($x < 5) \{\par
+    echo "O valor de x \'e9: $x <br>";\par
+    $x++;\par
+\}\par
+\cf3\b ?>\par
+\cf1\b0\par
+\cf0\b Explica\'e7\'e3o:\par
+\cf1\b0\par
+\cf0 O valor inicial de $x \'e9 5.\par
+A condi\'e7\'e3o ($x < 5) \'e9 falsa j\'e1 no in\'edcio, ent\'e3o o c\'f3digo dentro do la\'e7o nunca ser\'e1 executado.\par
+Sa\'edda: Nenhuma sa\'edda, porque o la\'e7o n\'e3o \'e9 executado.\par
 \par
-        .container \{\par
-            max-width: 600px;\par
-            background-color: #fff;\par
-            border-radius: 8px;\par
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\par
-            padding: 20px;\par
-        \}\par
+\cf1\fs28 DO ... WHILE\par
+\fs22\par
+\cf0 No la\'e7o do...while, o bloco de c\'f3digo \'e9 sempre executado pelo menos uma vez, independentemente da condi\'e7\'e3o, porque a condi\'e7\'e3o \'e9 verificada ap\'f3s a execu\'e7\'e3o.\par
 \par
-        table \{\par
-            width: 100%;\par
-            margin-top: 20px;\par
-            border-collapse: collapse;\par
-        \}\par
+Exemplo:\par
+\cf3\b <?php\cf1\b0\par
+$x = 5;\par
 \par
-        th, td \{\par
-            padding: 10px;\par
-            text-align: center;\par
-            border: 1px solid #ccc;\par
-        \}\par
+do \{\par
+    echo "O valor de x \'e9: $x <br>";\par
+    $x++;\par
+\} while ($x < 5);\par
+\cf3\b ?>\par
+\cf1\b0\par
+\cf0\b Explica\'e7\'e3o:\par
+\cf1\b0\par
+\cf0 O valor inicial de $x \'e9 5.\par
 \par
-        th \{\par
-            background-color: #007bff;\par
-            color: #fff;\par
-        \}\par
+O c\'f3digo dentro do la\'e7o \'e9 executado uma vez, mesmo que a condi\'e7\'e3o ($x < 5) seja falsa.\par
+Ap\'f3s executar o bloco, a condi\'e7\'e3o \'e9 verificada e o la\'e7o termina.\par
+Sa\'edda: O c\'f3digo imprime uma vez: O valor de x \'e9: 5, e s\'f3 depois a condi\'e7\'e3o \'e9 checada.\par
 \par
-        tr:nth-child(even) \{\par
-            background-color: #f2f2f2;\par
-        \}\par
+\b Diferen\'e7a chave:\par
 \par
-        tr:hover \{\par
-            background-color: #e0e0e0;\par
-        \}\par
+\b0 while: Verifica a condi\'e7\'e3o antes de executar o bloco. Se a condi\'e7\'e3o for falsa, o c\'f3digo nunca ser\'e1 executado.\par
 \par
-        .form-container \{\par
-            text-align: center;\par
-            margin-bottom: 20px;\par
-        \}\par
+do...while: Executa o bloco pelo menos uma vez, independentemente da condi\'e7\'e3o, e depois verifica a condi\'e7\'e3o para continuar ou parar.\par
 \par
-        input[type="number"] \{\par
-            padding: 10px;\par
-            border-radius: 4px;\par
-            border: 1px solid #ccc;\par
-        \}\par
-\par
-        button \{\par
-            padding: 10px 20px;\par
-            border-radius: 4px;\par
-            border: none;\par
-            background-color: #007bff;\par
-            color: #fff;\par
-            cursor: pointer;\par
-        \}\par
-\par
-        button:hover \{\par
-            background-color: #0056b3;\par
-        \}\par
-\par
-        .restart-link \{\par
-            display: block;\par
-            text-align: center;\par
-            margin-top: 20px;\par
-            color: #007bff;\par
-            text-decoration: none;\par
-        \}\par
-    </style>\par
-</head>\par
-<body>\par
-\par
-<div class="container">\par
-    <div class="form-container">\par
-        <h2>Gerador de N\'fameros</h2>\par
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">\par
-            <label for="limite">Limite Superior:</label>\par
-            <input type="number" id="limite" name="limite" min="1" max="400" required>\par
-            <button type="submit">Gerar Tabela</button>\par
-        </form>\par
-    </div>\par
-\par
-\b     <?php if ($_SERVER["REQUEST_METHOD"] == "POST"): ?>\par
-        <?php\par
-        $limite = $_POST['limite'];\par
-        $i = 1;\par
-        ?>\b0\par
-        <table>\par
-            <thead>\par
-            <tr>\par
-                <th>N\'famero</th>\par
-            </tr>\par
-            </thead>\par
-            <tbody>\par
-\b             <?php\par
-            // Loop while para gerar n\'fameros at\'e9 o limite especificado\par
-            while ($i <= $limite) \{\par
-                echo "<tr><td>$i</td></tr>";\par
-                $i++;\par
-            \}\par
-            ?>\par
-\b0             </tbody>\par
-        </table>\par
-        <a href="\b <?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>\b0 " class="restart-link">Gerar outra tabela</a>\par
-\b     <?php endif; ?>\par
-\b0\par
-</div>\par
-\par
-</body>\par
-</html>\par
-\par
-
-\pard\cf1\fs26 DO ... WHILE\par
-\cf2\fs22 Muito parecido com o while, por\'e9m mesmo sendo falso ele repete a primeira vez, n\'e3o precisando fazer a rotina de verifica\'e7\'e3o.\par
-\par
-\cf3 <!DOCTYPE html>\par
-<html lang="en">\par
-<head>\par
-    <meta charset="UTF-8">\par
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
-    <title>Tabuada</title>\par
-</head>\par
-<body>\par
-    <h2>Tabuada</h2>\par
-    <form method="post">\par
-        <label for="number">Enter a number:</label>\par
-        <input type="number" id="number" name="number">\par
-        <button type="submit" name="generate">Generate Table</button>\par
-    </form>\par
-    \par
-\b     <?php\par
-    if(isset($_POST['generate'])) \{\par
-        $number = $_POST['number'];\par
-        \par
-        if(is_numeric($number)) \{\par
-            echo "<h3>Tabuada do $number:</h3>";\par
-            \par
-            $i = 1;\par
-            do \{\par
-                $result = $number * $i;\par
-                echo "$number x $i = $result<br>";\par
-                $i++;\par
-            \} while ($i <= 10);\par
-        \} else \{\par
-            echo "<p>Please enter a valid number to generate the table.</p>";\par
-        \}\par
-    \}\par
-    ?>\par
-\b0 </body>\par
-</html>\par
-\par
-
-\pard\qj\cf2 Neste exemplo, a tabuada ser\'e1 sempre exibida, independentemente do n\'famero inserido pelo usu\'e1rio. Isso ocorre porque o do...while executa o bloco de c\'f3digo pelo menos uma vez. Mesmo que a condi\'e7\'e3o para o loop ( $i <= 10) n\'e3o seja verdadeira inicialmente, o bloco de c\'f3digo \'e9 executado pelo menos uma vez antes que a condi\'e7\'e3o seja verificada. Dessa forma, a tabuada sempre ser\'e1 gerada, mesmo se o usu\'e1rio inserir um n\'famero negativo ou zero.\par
-\par
-\cf3 <!DOCTYPE html>\par
-<html lang="en">\par
-<head>\par
-    <meta charset="UTF-8">\par
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
-    <title>Tabuada</title>\par
-</head>\par
-<body>\par
-    <h2>Tabuada</h2>\par
-    <form method="post">\par
-        <label for="number">Enter a number:</label>\par
-        <input type="number" id="number" name="number">\par
-        <button type="submit" name="generate">Generate Table</button>\par
-    </form>\par
-    \par
-\b     <?php\par
-    if(isset($_POST['generate'])) \{\par
-        $number = $_POST['number'];\par
-        \par
-        if($number > 0) \{\par
-            echo "<h3>Tabuada do $number:</h3>";\par
-            \par
-            $i = 1;\par
-            while ($i <= 10) \{\par
-                $result = $number * $i;\par
-                echo "$number x $i = $result<br>";\par
-                $i++;\par
-            \}\par
-        \} else \{\par
-            echo "<p>Please enter a positive number to generate the table.</p>";\par
-        \}\par
-    \}\par
-    ?>\par
-\b0 </body>\par
-</html>\par
-\par
-\cf2 Neste exemplo, a tabuada ser\'e1 exibida apenas se o n\'famero inserido for positivo. Se um n\'famero negativo for inserido, uma mensagem de aviso ser\'e1 exibida ao inv\'e9s da tabuada. Agora a diferen\'e7a entre while e do...while \'e9 mais evidente, pois com do...while, a tabuada seria exibida mesmo com um n\'famero negativo.\par
-\par
+Esses exemplos mostram que o do...while garante ao menos uma execu\'e7\'e3o, enquanto o while pode n\'e3o executar o bloco de c\'f3digo se a condi\'e7\'e3o for falsa logo no in\'edcio.\par
+\cf2\par
 
 \pard\cf1\fs26 FOR\par
 
@@ -733,8 +573,8 @@ Clareza de c\'f3digo: O uso do foreach torna o c\'f3digo mais leg\'edvel e conci
 </body>\par
 </html>\par
 \par
-Neste exemplo:\par
-\cf2\par
+\cf0\b Neste exemplo:\par
+\cf2\b0\par
 Definimos um array associativo chamado $registros, onde cada elemento representa um registro com informa\'e7\'f5es de Setor, Local e Lota\'e7\'e3o.\par
 Utilizamos um loop foreach para percorrer cada registro no array $registros e exibir suas informa\'e7\'f5es em uma tabela HTML.\par
 O HTML e o CSS s\'e3o usados para estruturar e estilizar a tabela de forma adequada.\par
@@ -925,8 +765,80 @@ Espero que essas explica\'e7\'f5es e exemplos tenham esclarecido as diferen\'e7a
 \par
 
 \pard\b\f0 Desafio\par
-\b0\f1 1) Fa\'e7a um programa em PHP que define uma vari\'e1vel com o peso e a altura de uma pessoa. Calcule e mostre o IMC.\par
+\b0\f1 1) Neste desafio, voc\'ea deve criar uma aplica\'e7\'e3o simples em PHP que receba o nome e a nota de 3 alunos por meio de um formul\'e1rio HTML e calcule o seguinte:\par
 \par
+a) A m\'e9dia das notas.\par
+b) Informe se cada aluno foi aprovado (nota maior ou igual a 7) ou reprovado (nota menor que 7).\par
+c) Verifique quem teve a maior nota e exiba o nome do aluno com a maior pontua\'e7\'e3o.\par
+\par
+\cf3 <!DOCTYPE html>\par
+<html lang="pt-br">\par
+<head>\par
+    <meta charset="UTF-8">\par
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\par
+    <title>Desafio: Sistema de Pontua\'e7\'e3o de Alunos</title>\par
+</head>\par
+<body>\par
+    <h1>Sistema de Pontua\'e7\'e3o de Alunos</h1>\par
+\par
+    <form action="" method="post">\par
+        <h2>Aluno 1</h2>\par
+        Nome: <input type="text" name="aluno1_nome" required><br>\par
+        Nota: <input type="number" name="aluno1_nota" min="0" max="10" required><br><br>\par
+\par
+        <h2>Aluno 2</h2>\par
+        Nome: <input type="text" name="aluno2_nome" required><br>\par
+        Nota: <input type="number" name="aluno2_nota" min="0" max="10" required><br><br>\par
+\par
+        <h2>Aluno 3</h2>\par
+        Nome: <input type="text" name="aluno3_nome" required><br>\par
+        Nota: <input type="number" name="aluno3_nota" min="0" max="10" required><br><br>\par
+\par
+        <input type="submit" value="Calcular Resultados">\par
+    </form>\par
+\par
+    <?php\par
+    if ($_SERVER["REQUEST_METHOD"] == "POST") \{\par
+        // Receber os dados do formul\'e1rio\par
+        $alunos = [\par
+            ['nome' => $_POST['aluno1_nome'], 'nota' => (float)$_POST['aluno1_nota']],\par
+            ['nome' => $_POST['aluno2_nome'], 'nota' => (float)$_POST['aluno2_nota']],\par
+            ['nome' => $_POST['aluno3_nome'], 'nota' => (float)$_POST['aluno3_nota']]\par
+        ];\par
+\par
+        $soma_notas = 0;\par
+        $maior_nota = 0;\par
+        $aluno_maior_nota = "";\par
+\par
+        // Percorrer os alunos para calcular a m\'e9dia e verificar maior nota\par
+        foreach ($alunos as $aluno) \{\par
+            $soma_notas += $aluno['nota'];\par
+\par
+            // Condicional para aprova\'e7\'e3o\par
+            if ($aluno['nota'] >= 7) \{\par
+                echo "<p>\{$aluno['nome']\} foi <strong>aprovado</strong> com nota \{$aluno['nota']\}.</p>";\par
+            \} else \{\par
+                echo "<p>\{$aluno['nome']\} foi <strong>reprovado</strong> com nota \{$aluno['nota']\}.</p>";\par
+            \}\par
+\par
+            // Verificar maior nota\par
+            if ($aluno['nota'] > $maior_nota) \{\par
+                $maior_nota = $aluno['nota'];\par
+                $aluno_maior_nota = $aluno['nome'];\par
+            \}\par
+        \}\par
+\par
+        // Calcular a m\'e9dia\par
+        $media = _______________ / count($alunos);\par
+        echo "<p>A m\'e9dia das notas \'e9: <strong>$media</strong>.</p>";\par
+\par
+        // Mostrar o aluno com maior nota\par
+        echo "<p>O aluno com a maior nota \'e9: <strong>$aluno_maior_nota</strong> com nota $maior_nota.</p>";\par
+    \}\par
+    ?>\par
+</body>\par
+</html>\par
+\cf0\par
 2) Fa\'e7a um programa em PHP que mostre todos os n\'fameros inteiros de 100 a 200 com incremento de 2 em 2.\par
 \par
 
